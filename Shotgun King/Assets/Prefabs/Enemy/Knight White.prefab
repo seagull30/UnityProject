@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8159717571041421085}
   - component: {fileID: 3119775162643635783}
   - component: {fileID: 7982098594036784183}
+  - component: {fileID: 4583797316519947998}
   m_Layer: 0
   m_Name: Knight White
   m_TagString: Untagged
@@ -84,3 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4583797316519947998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041878588386859249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee1936dcf08fa44f8e4c0ccbdf22763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitCooltime: 0
+  RemainingCooltime: 0
+  Helth: 0
+  MoveCount: 0
+  _jumpForce: 0.2
+  IsCheckMate: 0
+  Board: {fileID: 0}
+  _moveType: 0

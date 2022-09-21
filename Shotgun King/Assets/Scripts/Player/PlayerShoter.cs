@@ -54,16 +54,16 @@ public class PlayerShoter : MonoBehaviour
         AmmoInMagazine = InitAmmoInMagazine;
     }
 
-    public bool TryShot()
+    public void TryShot(Vector3 dir)
     {
         if (AmmoInMagazine > 0)
         {
-            return true;
+            StartCoroutine(shot(dir));
         }
-        return false;
+
     }
 
-    public void shot(Vector3 dir)
+    IEnumerator shot(Vector3 dir)
     {
         for (int i = 0; i < Damage; ++i)
         {
@@ -78,7 +78,7 @@ public class PlayerShoter : MonoBehaviour
         }
         --AmmoInMagazine;
 
-        // yield return new WaitForSeconds(1f);
+         yield return new WaitForSeconds(1f);
         _controller.SetTriggerTurnOver();
     }
 

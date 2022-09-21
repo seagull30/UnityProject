@@ -13,7 +13,8 @@ public class Pawn : Enemy
         MoveDir = new GridIndex[1] { new GridIndex(-1, 0) };
         _moveType = EMovementType.Slide;
         MoveCount = 1;
-        Gamemanager.instance.OnTurnEnd += TurnCount;
+        Board.state[pos.X, pos.Y] = Board.State.full;
+        GameManager.instance.OnTurnEnd += TurnCount;
         //transform.position = Gamemanager.instance.Board.BoardPan[pos.X, pos.Y];
     }
 
@@ -53,5 +54,9 @@ public class Pawn : Enemy
         Debug.Log(forward);
         target = Board.BoardPan[forward.X, forward.Y];
         Debug.Log(target);
+    }
+    private void OnDisable()
+    {
+        GameManager.instance.OnTurnEnd -= TurnCount;
     }
 }

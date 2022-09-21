@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void isCanMove(Transform Player, Vector3 target)
     {
-        GridIndex start = _board.PlayerPos;
+        GridIndex start = _controller.PlayerPos;
         Dir dir;
         Vector3 targetDirection = (target - Player.position).normalized;
 
@@ -101,8 +101,10 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(CalculateCurvePoints(Start, Via, End));
 
         //transform.position = _board.BoardPan[nx, ny];
-        _board.PlayerPos = new GridIndex(nx, ny);
-        Debug.Log(_board.PlayerPos);
+        //_board.state[start.X, start.Y] = Board.State.empty;
+        _controller.PlayerPos = new GridIndex(nx, ny);
+        //_board.state[_controller.PlayerPos.X, _controller.PlayerPos.Y] = Board.State.full;
+        Debug.Log(_controller.PlayerPos);
     }
 
     // 베지에 곡선을 통한 점프

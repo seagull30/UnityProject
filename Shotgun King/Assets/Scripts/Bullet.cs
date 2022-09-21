@@ -9,10 +9,15 @@ public class Bullet : MonoBehaviour
     public float distance;
 
 
-    private float elapsedtme = 0f;
+    private float elapsedtme;
     void Start()
     {
 
+    }
+    private void OnEnable()
+    {
+        elapsedtme = 0f;
+        //StartCoroutine(Fire());
     }
 
     void Update()
@@ -22,9 +27,24 @@ public class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-
-            transform.Translate(0f, 0f, _speed);
+        
+        transform.Translate(0f, 0f, _speed);
     }
+
+
+    //IEnumerator Fire()
+    //{
+    //    elapsedtme = 0f;
+    //    float dtime = distance / _speed;
+    //    while (elapsedtme < dtime)
+    //    {
+    //        elapsedtme += Time.deltaTime;
+    //
+    //        transform.Translate(0f, 0f, _speed);
+    //        yield return null;
+    //    }
+    //    gameObject.SetActive(false);
+    //}
 
     private void OnTriggerEnter(Collider other)
     {

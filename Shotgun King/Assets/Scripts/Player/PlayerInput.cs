@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     public bool Mouse { get; private set; }
     void Update()
     {
-        if (Gamemanager.instance.IsGameOver)
+        if (GameManager.instance.IsGameOver)
         {
             Mouse = false;
             return;

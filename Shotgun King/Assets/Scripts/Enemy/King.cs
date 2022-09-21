@@ -13,7 +13,8 @@ public class King : Enemy
         MoveDir = new GridIndex[8] { new GridIndex(1, 0), new GridIndex(1, 1), new GridIndex(0, 1), new GridIndex(-1, 1), new GridIndex(-1, 0), new GridIndex(-1, -1), new GridIndex(0, -1), new GridIndex(1, -1) };
         _moveType = EMovementType.Slide;
         MoveCount = 1;
-        Gamemanager.instance.OnTurnEnd += TurnCount;
+        Board.state[pos.X, pos.Y] = Board.State.full;
+        GameManager.instance.OnTurnEnd += TurnCount;
         //transform.position = Gamemanager.instance.Board.BoardPan[pos.X, pos.Y];
     }
 
@@ -26,5 +27,9 @@ public class King : Enemy
     protected override void arrivalPosition(GridIndex targetGrid, out Vector3 target)
     {
         base.arrivalPosition(targetGrid, out target);
+    }
+    private void OnDisable()
+    {
+        GameManager.instance.OnTurnEnd -= TurnCount;
     }
 }

@@ -36,11 +36,6 @@ public class Enemy : MonoBehaviour
         _moveType = EMovementType.Jump;
     }
 
-    private void OnEnable()
-    {
-        Gamemanager.instance.OnTurnEnd += TurnCount;
-    }
-
     public void TurnCount(GridIndex playerPos)
     {
         Debug.Log("TurnCount");
@@ -52,6 +47,7 @@ public class Enemy : MonoBehaviour
         else
         {
             Vector3 target;
+            CheckAttak(playerPos);
             arrivalPosition(playerPos, out target);
             Move(transform.position, target);
             RemainingCooltime = InitCooltime;
@@ -71,7 +67,9 @@ public class Enemy : MonoBehaviour
                 if (Board.state[newIndex.X, newIndex.Y] != Board.State.empty)
                     break;
                 if (newIndex == playerPos)
-                    Debug.Log("Á×À½");
+                {
+                    StartCoroutine(Kill(Board.BoardPan[pos.X, pos.Y], Board.BoardPan[playerPos.X, playerPos.Y]));
+                }    
             }
         }
     }
@@ -117,8 +115,10 @@ public class Enemy : MonoBehaviour
             }
 
         }
+        Board.state[pos.X, pos.Y] = Board.State.empty;
 
         pos = bestposition;
+        Board.state[pos.X, pos.Y] = Board.State.full;
         target = Board.BoardPan[bestposition.X, bestposition.Y];
     }
 
@@ -135,7 +135,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    IEnumerator Kill(Vector3 startPos, Vector3 targetPos)
+    {
+        // º£Áö¾î °î¼±
+        float elapsedTime = 0f;
+        float totalTime = 1f;
+        Vector3 via = new Vector3(Vector3.Lerp(startPos, targetPos, 0.5f).x, _jumpForce, Vector3.Lerp(startPos, targetPos, 0.5f).z);
 
+        while (elapsedTime < totalTime)
+        {
+            elapsedTime += Time.deltaTime;
+            Vector3 v1 = Vector3.Lerp(startPos, via, elapsedTime / totalTime);
+            Vector3 v2 = Vector3.Lerp(via, targetPos, elapsedTime / totalTime);
+
+            transform.position = Vector3.Lerp(v1, v2, elapsedTime / totalTime);
+
+            yield return null;
+        }
+        GameManager.instance._player.Die();
+    }
 
     IEnumerator Jump(Vector3 startPos, Vector3 targetPos)
     {
@@ -200,6 +218,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        Board.state[pos.X, pos.Y] = Board.State.empty;
         gameObject.SetActive(false);
     }
 
@@ -221,6 +240,6 @@ public class Enemy : MonoBehaviour
 
     private void OnDisable()
     {
-        Gamemanager.instance.OnTurnEnd -= TurnCount;
+        GameManager.instance.OnTurnEnd -= TurnCount;
     }
 }

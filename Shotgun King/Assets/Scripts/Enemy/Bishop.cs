@@ -10,11 +10,12 @@ public class Bishop : Enemy
         InitCooltime = 3;
         RemainingCooltime = Random.Range(1, InitCooltime);
         Helth = 4;
-        pos = new GridIndex(7, 4);
+        pos = new GridIndex(7, 2);
         MoveDir = new GridIndex[4] { new GridIndex(-1, -1), new GridIndex(1, 1), new GridIndex(1, -1), new GridIndex(-1, 1) };
         _moveType = EMovementType.Slide;
         MoveCount = 7;
-        Gamemanager.instance.OnTurnEnd += TurnCount;
+        Board.state[pos.X, pos.Y] = Board.State.full;
+        GameManager.instance.OnTurnEnd += TurnCount;
         //transform.position = Gamemanager.instance.Board.BoardPan[pos.X, pos.Y];
     }
 
@@ -91,4 +92,8 @@ public class Bishop : Enemy
         base.CheckAttak(playerPos);
     }
 
+    private void OnDisable()
+    {
+        GameManager.instance.OnTurnEnd -= TurnCount;
+    }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1348493824517369608}
   - component: {fileID: 5918810721732644203}
   - component: {fileID: 8215729558809187186}
+  - component: {fileID: 6128976528822313780}
   m_Layer: 0
   m_Name: King White
   m_TagString: Untagged
@@ -84,3 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6128976528822313780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35349866507331912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284a7b7c26acf4f43b792bb3e7983c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitCooltime: 0
+  RemainingCooltime: 0
+  Helth: 0
+  MoveCount: 0
+  _jumpForce: 0.2
+  IsCheckMate: 0
+  Board: {fileID: 0}
+  _moveType: 0

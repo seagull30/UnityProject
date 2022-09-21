@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement _movement;
 
     public bool IsDead;
-
+    public GridIndex PlayerPos;
     public GameObject PlayerFigure;
     public GameObject GunFigure;
 
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
         _input = GetComponent<PlayerInput>();
         _shoter = GetComponent<PlayerShoter>();
         _movement = GetComponent<PlayerMovement>();
+        PlayerPos = new GridIndex(0, 4);
     }
 
     private void Update()
@@ -70,9 +71,10 @@ public class PlayerController : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, hit.point) > 0.1f)
                 {
-                    if (_shoter.TryShot() && !_movement.isMove)
+                    if (!_movement.isMove)
                     {
-                        _shoter.shot(hit.point - transform.position);
+                        _shoter.TryShot(hit.point - transform.position);
+                        //_shoter.shot(hit.point - transform.position);
                         //TurnOver.Invoke(_movement._board.PlayerPos);
                     }
                 }
@@ -98,15 +100,15 @@ public class PlayerController : MonoBehaviour
         }
 
         _isTurnOver = true;
-        TurnOver.Invoke(_movement._board.PlayerPos);
+        TurnOver.Invoke(PlayerPos);
         _isTurnOver = false;
     }
 
 
-    
-
-
-
-
+    public void Die()
+    {
+        gameObject.SetActive(false);
+        GameManager.instance.End();
+    }
 
 }

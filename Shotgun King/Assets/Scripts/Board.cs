@@ -31,7 +31,12 @@ public class Board : MonoBehaviour
     }
     void Start()
     {
-        PlayerPos = new GridIndex(0, 4);
+        //state[0, 4] = State.full;
+        //state[7, 1] = State.full;
+        //state[7, 2] = State.full;
+        //state[7, 3] = State.full;
+        //state[7, 4] = State.full;
+        //state[7, 5] = State.full;
     }
 
     // Update is called once per frame
